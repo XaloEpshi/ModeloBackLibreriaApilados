@@ -52,10 +52,4 @@ Para utilizar estas rutas, realiza solicitudes HTTP a la URL base de la API (por
 
 ¡Siéntete libre de contribuir al proyecto! Abre una solicitud de extracción con tus mejoras o correcciones de errores.
 
-## Contacto
-
-Para más información, ponte en contacto con [nombre del responsable del proyecto] en [correo electrónico].
-
-¡Gracias por tu interés en nuestro proyecto!
-
 
