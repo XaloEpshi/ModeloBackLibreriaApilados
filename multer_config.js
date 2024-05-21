@@ -33,7 +33,7 @@ var upload = multer({
             cb(null, false); // Llama a la función de devolución de llamada con falso para rechazar el archivo
         }
     }
-}).single('fotoPersonal'); // Define que solo se espera un archivo con el nombre 'fotoPersonal'
+}).single('portada'); // Define que solo se espera un archivo con el nombre 'fotoPersonal'
 
 // Exporta el middleware multer configurado para manejar la carga de archivos
 module.exports = upload;

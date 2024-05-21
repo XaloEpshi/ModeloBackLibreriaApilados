@@ -16,3 +16,4 @@ var libroSchema = new Schema({
 
 // Exportación del modelo Libro basado en el esquema definido
 module.exports = mongoose.model("Libro", libroSchema);
+ 

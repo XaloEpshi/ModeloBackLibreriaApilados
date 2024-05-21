@@ -1,0 +1,113 @@
+.search-form{
+    width: 100%;
+    max-width: 680px;
+}
+.search-form-elem{
+    padding: 1.4rem 2.8rem;
+    border-radius: 3.8rem;
+}
+.search-form-elem .form-control{
+    font-size: 2rem;
+    padding: 0.6rem;
+}
+.search-form-elem .form-control::placeholder{
+    opacity: 0.9;
+}
+
+/* Archivo: src/components/SearchResults.css */
+.search-results {
+    padding: 20px;
+  }
+  
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 60px;
+  }
+  
+  .result-item {
+    border: 1px solid #030303;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    color: #000000;
+    font-size: 20px;
+  }
+  
+  .result-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .book-cover img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .book-details {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .book-details h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  
+  .book-details p {
+    margin: 5px 0;
+  }
+  
+  .result-text {
+    color: #000000;
+    font-size: 20px;
+  }
+
+  .title-text{
+    color:#000000;
+    font-size: 40px;
+  }
+
+  button {
+    margin-top: 10px; /* Ajusta el margen superior según necesites */
+    margin-bottom: 20px; /* Ajusta el margen inferior según necesites */
+    padding: 15px 30px; /* Aumenta el relleno para hacer el botón más grande */
+    font-size: 20px; /* Aumenta el tamaño de la fuente para que coincida con el botón más grande */
+    background-color: rgb(235, 243, 18); /* Mantiene el color de fondo actual */
+    border-radius: 5px; /* Ajusta los bordes redondeados según tu diseño */
+    cursor: pointer; /* Mantiene el cursor como puntero para indicar que es un botón */
+    transition: background-color 0.3s; /* Transición suave para el color de fondo al pasar el ratón */
+  }
+
+  .error-message {
+    color: rgb(255, 255, 255); /* Cambia el color del texto a rojo para indicar un error */
+    margin-top: 30px; /* Añade un margen superior para separarlo del formulario */
+    font-size: 25px;
+  }
+
+
+  .result-item button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #efdc08; /* Primary color */
+    border: none;
+    color: #010101; /* Text color */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .result-item button:hover {
+    background-color: #d4b806; /* Darker shade of primary color */
+  }
+  
+  .result-item button:last-child {
+    background-color: #e74c3c; /* Red color for delete button */
+    color: #fff; /* White text */
+  }
+  
+  .result-item button:last-child:hover {
+    background-color: #c0392b; /* Darker red for delete button */
+  }
+  
+  
+  

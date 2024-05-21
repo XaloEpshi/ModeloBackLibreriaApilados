@@ -1,0 +1,46 @@
+.update-book-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #e5c912;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  border-color: #010101;
+}
+
+.update-book-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.update-book-form .form-group {
+  margin-bottom: 15px;
+}
+
+.update-book-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.update-book-form input[type="text"],
+.update-book-form input[type="number"],
+.update-book-form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  border-color: #010101;
+}
+
+.update-book-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #e8f406; /* Primary color */
+  color: #010101; /* Text color */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.update-book-form button:hover {
+  background-color: #f4b807; /* Darker shade of primary color */
+}

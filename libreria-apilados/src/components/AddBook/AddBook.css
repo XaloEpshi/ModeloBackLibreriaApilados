@@ -1,0 +1,94 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+  
+.add-book-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f1860c;
+  }
+  
+  .add-book-form h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .add-book-form label {
+    display: block;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .add-book-form input[type="text"],
+  .add-book-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 45px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    box-sizing: border-box;
+  }
+  
+  .add-book-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    color: rgb(17, 16, 16);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .add-book-form input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
+  .add-book-form p.error-message {
+    color: red;
+    margin-top: 10px;
+  }
+
+
+  .add-button,
+  .back-button {
+    display: inline-block;
+    margin-right: 10px; /* Espacio entre los botones */
+    background-color: #ede108; /* Color blanco */
+    color: #010101; /* Color del texto */
+    padding: 1px 5px; /* Espaciado interno */
+    text-decoration: none; /* Sin subrayado */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Transiciones suaves */
+  }
+  
+  .add-button:hover,
+  .back-button:hover {
+    background-color: #efcc07e6; /* Cambia el color de fondo al pasar el ratón */
+    color: #0b0b0b; /* Cambia el color del texto al pasar el ratón */
+    border-color: #010101; /* Cambia el color del borde al pasar el ratón */
+  }
+
+  .add-book-form button[type="submit"] {
+    width: 100%; /* Mantiene el ancho completo */
+    padding: 15px 30px; /* Aumenta el relleno para hacer el botón más grande */
+    font-size: 18px; /* Aumenta el tamaño de la fuente para que coincida con el botón más grande */
+    border-radius: 10px; /* Mantiene los bordes redondeados */
+    cursor: pointer;
+    background-color: #f1e60c; /* Color de fondo del botón */
+    color: rgb(10, 10, 10); /* Color del texto del botón */
+    margin-top: 20px; /* Añade un margen superior */
+    transition: background-color 0.3s; /* Transición suave para el color de fondo */
+  }
+  
+  .add-book-form button[type="submit"]:hover {
+    background-color: #efcc07e6; /* Oscurece el color de fondo al pasar el ratón */
+  }
+  
+  
+
+
+  

@@ -1,0 +1,48 @@
+.header-content {
+    min-height: 75vh;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.5), /* Overlay más transparente */
+        rgba(0, 0, 0, 0.3)
+    ),
+    url("../../images/Portada.jpg") center/cover no-repeat;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255); /* Fondo blanco semitransparente */
+}
+
+.header-title {
+    font-size: 5.0rem;
+    color: #fbfbfb; /* Azul oscuro */
+}
+
+.header-text {
+    margin-top: -1.8rem;
+    margin-bottom: 2.8rem;
+    opacity: 3.0; /* Aumentar la opacidad para mejorar la legibilidad */
+    max-width: 770px;
+    font-size: 15px;
+    color: #e9ecf0; /* Otro tono de azul oscuro */
+}
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ecf0f1; /* Gris claro */
+    color: #ffffff; /* Azul oscuro para el texto */
+}
+
+a {
+    color: #e67e22; /* Naranja para enlaces */
+}
+
+button {
+    background-color: #e67e22; /* Naranja para botones */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #d35400; /* Tono más oscuro de naranja para hover */
+}

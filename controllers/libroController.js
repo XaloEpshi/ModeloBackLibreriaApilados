@@ -1,10 +1,8 @@
-//CONTROLADOR DE GUARDADO DE DCTOS
-
 var validator = require("validator");
 var Libro = require("../models/libro");
 
-//const fs = require("fs");
-//const path = require("path");
+const fs = require("fs");
+const path = require("path");
 
 var controllers = {
   // Controlador para agregar un nuevo libro
@@ -31,13 +29,16 @@ var controllers = {
         editorialValida &&
         paginasValidas
       ) {
+        // Obtener la imagen de la portada del libro
+        const portada = req.file ? req.file.filename : null;
+
         // Crear un nuevo objeto libro utilizando el modelo Libro
         var libro = new Libro({
           ISBN: params.ISBN,
           nombreLibro: params.nombreLibro,
           autor: params.autor,
           editorial: params.editorial,
-          portada: params.portada || null, // Si no se proporciona una portada, se guarda como null
+          portada: portada, // Usar la variable portada que contiene el nombre del archivo de la imagen
           paginas: params.paginas,
         });
 
@@ -67,15 +68,11 @@ var controllers = {
 
   // Controlador para actualizar (MODIFICAR) un libro existente
   actualizarLibro: async (req, res) => {
-    // Obtener el ISBN del libro de los parámetros de la solicitud
-    var isbn = req.params.ISBN;
-    // Obtener los parámetros del cuerpo de la solicitud
-    var params = req.body;
+    var isbn = req.params.ISBN; // ISBN del libro a actualizar
+    var params = req.body; // Datos del libro a actualizar
 
-    // Validación de los datos del libro
     try {
-      // Validar que los campos obligatorios no estén vacíos y cumplan con ciertos criterios
-      var isbnValido = !validator.isEmpty(params.ISBN);
+      // Validación de los datos del libro
       var nombreLibroValido = !validator.isEmpty(params.nombreLibro);
       var autorValido = !validator.isEmpty(params.autor);
       var editorialValida = !validator.isEmpty(params.editorial);
@@ -83,41 +80,54 @@ var controllers = {
         !validator.isEmpty(params.paginas) &&
         validator.isInt(params.paginas, { min: 1 });
 
-      // Verificar si los datos del libro son válidos
+      // Si todos los campos son válidos, proceder con la actualización
       if (
-        isbnValido &&
         nombreLibroValido &&
         autorValido &&
         editorialValida &&
         paginasValidas
       ) {
-        // Actualizar el libro con los nuevos datos proporcionados
+        const updateData = {
+          nombreLibro: params.nombreLibro,
+          autor: params.autor,
+          editorial: params.editorial,
+          paginas: params.paginas,
+        };
+
+        // Si se subió una nueva imagen de portada, incluirla en los datos de actualización
+        if (req.file) {
+          updateData.portada = req.file.filename;
+        }
+
+        // Actualizar el libro en la base de datos
         var libroActualizado = await Libro.findOneAndUpdate(
           { ISBN: isbn },
-          params,
-          { new: true }
+          updateData,
+          { new: true } // Opción para devolver el documento actualizado
         ).exec();
-        // Verificar si se encontró y actualizó correctamente el libro
-        if (!libroActualizado) {
+
+        // Si el libro se actualizó correctamente, enviar respuesta exitosa
+        if (libroActualizado) {
+          return res.status(200).send({
+            status: "Libro Actualizado Correctamente",
+            libro: libroActualizado,
+          });
+        } else {
+          // Si no se encuentra el libro, enviar respuesta de error
           return res.status(404).send({
             status: "error",
             message: "No existe un libro con ISBN: " + isbn,
           });
         }
-        // Enviar respuesta exitosa con el libro actualizado
-        return res.status(200).send({
-          status: "Libro Actualizado Correctamente",
-          libro: libroActualizado,
-        });
       } else {
-        // Enviar respuesta de error si la validación de los datos del libro falla
+        // Si la validación de los datos falla, enviar respuesta de error
         return res.status(400).send({
           status: "error",
           message: "La validación de los datos falló",
         });
       }
     } catch (err) {
-      // Enviar respuesta de error si ocurre algún problema al actualizar el libro
+      // Si ocurre un error durante la actualización, enviar respuesta de error
       return res.status(500).send({
         status: "error",
         message: "Error al actualizar",
@@ -127,14 +137,11 @@ var controllers = {
 
   // Controlador para eliminar un libro
   eliminarLibro: async (req, res) => {
-    // Obtener el ISBN del libro de los parámetros de la solicitud
     var isbn = req.params.ISBN;
 
     try {
-      // Eliminar el libro por su ISBN
       var libroEliminado = await Libro.findOneAndDelete({ ISBN: isbn }).exec();
 
-      // Verificar si se encontró y eliminó correctamente el libro
       if (!libroEliminado) {
         return res.status(404).send({
           status: "error",
@@ -142,13 +149,11 @@ var controllers = {
         });
       }
 
-      // Enviar respuesta exitosa con el libro eliminado
       return res.status(200).send({
         status: "Libro Eliminado correctamente",
         libro: libroEliminado,
       });
     } catch (err) {
-      // Enviar respuesta de error si ocurre algún problema al eliminar el libro
       return res.status(500).send({
         status: "error",
         message: "Error al eliminar el libro",
@@ -252,6 +257,58 @@ var controllers = {
       return res.status(500).send({
         status: "error",
         message: "Error interno del servidor al buscar libros",
+      });
+    }
+  },
+
+  // Controlador para cargar una imagen y actualizar la portada de un libro
+  uploadPortada: async (req, res) => {
+    // Obtener el archivo subido desde la solicitud
+    const file = req.file;
+    // Obtener el ISBN del libro desde los parámetros de la solicitud
+    var isbn = req.params.ISBN;
+
+    // Verificar si se ha proporcionado un archivo
+    if (!file) {
+      return res.status(404).send({
+        status: "error",
+        message:
+          "El archivo no puede estar vacío o la extensión del archivo no está permitida",
+      });
+    }
+
+    // Obtener el nombre temporal del archivo subido
+    var tempFileName = file.filename; // Asegúrate de que 'filename' es la propiedad correcta
+
+    try {
+      // Actualizar la portada del libro con el nombre del archivo cargado
+      var libroActualizado = await Libro.findOneAndUpdate(
+        { ISBN: isbn },
+        { portada: tempFileName },
+        { new: true }
+      ).exec();
+
+      // Verificar si se pudo actualizar el libro
+      if (!libroActualizado) {
+        return res.status(400).send({
+          status: "error",
+          message:
+            "La imagen no pudo ser guardada en el libro con ISBN: " + isbn,
+        });
+      }
+
+      // Devolver una respuesta exitosa con el mensaje y la información actualizada del libro
+      return res.status(200).send({
+        status: "success",
+        message: "Portada actualizada con éxito!",
+        fileName: tempFileName,
+        libro: libroActualizado,
+      });
+    } catch (err) {
+      // Si ocurre un error durante la actualización de la portada del libro, devolver un error 500
+      return res.status(500).send({
+        status: "error",
+        message: "Error al actualizar la portada",
       });
     }
   },
