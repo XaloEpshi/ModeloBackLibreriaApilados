@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 router.post("/libro", upload, libroController.nuevoLibro); // Ruta para crear un nuevo libro, incluyendo la carga de la portada
 
 //Actualizar Un Libro
-router.put("/actualizarLibro/:ISBN", libroController.actualizarLibro); // Ruta para actualizar un libro por su ISBN
+router.put("/actualizarLibro/:ISBN", upload, libroController.actualizarLibro); // Ruta para actualizar un libro por su ISBN, incluyendo la carga de la portada
 
 //Eliminar un Libro
 router.delete("/eliminarLibro/:ISBN", libroController.eliminarLibro); // Ruta para eliminar un libro por su ISBN

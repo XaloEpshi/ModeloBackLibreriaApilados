@@ -1,18 +1,24 @@
 import React from "react";
-import Navbar from "../Navbar/Navbar";
-import SearchForm from "../SearchForm/SearchForm";
-import "./Header.css";
+import Navbar from "../Navbar/Navbar"; // Importa el componente Navbar
+import SearchForm from "../SearchForm/SearchForm"; // Importa el componente SearchForm
+import "./Header.css"; // Importa el archivo CSS para estilos específicos del encabezado
 
 const Header = () => {
   return (
     <div>
+      {/* Define el encabezado */}
       <header>
+        {/* Renderiza el componente Navbar */}
         <Navbar />
+        {/* Contenido del encabezado */}
         <div className="header-content flex flex-c text-center text-white">
+          {/* Espacio en blanco para ajustar el diseño */}
           <br />
           <br />
           <br />
+          {/* Título del encabezado */}
           <h2>Buscas un libro? Tenemos miles.</h2>
+          {/* Mensaje introductorio */}
           <br />
           <p>Descubre el rincón perfecto para los amantes de la lectura!</p>
           <p>
@@ -29,6 +35,7 @@ const Header = () => {
             déjate llevar por el encanto de las páginas que esperan ser
             descubiertas.
           </p>
+          {/* Renderiza el componente SearchForm */}
           <SearchForm />
         </div>
       </header>

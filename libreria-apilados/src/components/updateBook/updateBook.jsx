@@ -1,126 +1,136 @@
-import React, { useState } from 'react'; // Importa React y useState desde React
-import { useLocation, useNavigate } from 'react-router-dom'; // Importa hooks de React Router
-import "./updateBook.css"; // Importa el archivo de estilos CSS
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import conexion from "../../common/conexion";
+import "./updateBook.css"; // Asegúrate de tener los estilos adecuados para UpdateBook
+import { Link } from "react-router-dom";
 
-const UpdateBookForm = () => {
-  const location = useLocation(); // Hook para acceder a la ubicación actual de la ruta
-  const navigate = useNavigate(); // Hook para navegar programáticamente
-  const { libro } = location.state || {}; // Obtiene el libro desde el estado de la ubicación (si existe)
+const UpdateBook = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { libro } = location.state || {}; // Asegúrate de pasar el objeto libro al componente cuando navegues a él
 
-  // Estado local para los datos del formulario
   const [formData, setFormData] = useState({
-    nombreLibro: libro?.nombreLibro || '', // Inicializa el campo nombreLibro con el valor del libro (si existe)
-    autor: libro?.autor || '', // Inicializa el campo autor con el valor del libro (si existe)
-    editorial: libro?.editorial || '', // Inicializa el campo editorial con el valor del libro (si existe)
-    paginas: libro?.paginas || '', // Inicializa el campo paginas con el valor del libro (si existe)
-    portada: null, // Inicializa el campo portada como null
+    ISBN: libro?.ISBN || '',
+    nombreLibro: libro?.nombreLibro || '',
+    autor: libro?.autor || '',
+    editorial: libro?.editorial || '',
+    paginas: libro?.paginas || '',
+    portada: libro?.portada || null, // Si tienes un valor por defecto para la portada, puedes inicializarlo aquí
   });
+  const [error, setError] = useState("");
 
-  // Manejador de cambios para los campos del formulario
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value }); // Actualiza el estado local con el nuevo valor del campo
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleBackToHome = () => {
-    navigate('/');
+  const handleImageChange = (e) => {
+    setFormData({
+      ...formData,
+      portada: e.target.files[0],
+    });
   };
 
-  // Manejador de cambios para el campo de archivo
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, portada: e.target.files[0] }); // Actualiza el estado local con el archivo seleccionado
-  };
-
-  // Manejador de envío del formulario
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Previene la acción predeterminada del formulario (recargar la página)
-    const form = new FormData();
-    form.append('nombreLibro', formData.nombreLibro);
-    form.append('autor', formData.autor);
-    form.append('editorial', formData.editorial);
-    form.append('paginas', formData.paginas);
-    if (formData.portada) {
-      form.append('portada', formData.portada); // Agrega el archivo de portada si se ha seleccionado uno
+    e.preventDefault();
+
+    const formDataToUpdate = new FormData();
+
+    for (const key in formData) {
+      formDataToUpdate.append(key, formData[key]);
     }
 
     try {
-      // Realiza una solicitud PUT para actualizar el libro
-      const response = await fetch(`http://localhost:3000/api/actualizarLibro/${libro.ISBN}`, {
-        method: 'PUT',
-        body: form,
+      const response = await fetch(`${conexion.urlApi}/actualizarLibro/${formData.ISBN}`, {
+        method: "PUT",
+        body: formDataToUpdate,
       });
 
       const result = await response.json();
 
       if (response.ok) {
-        alert('Libro actualizado correctamente'); // Muestra una alerta de éxito
-        navigate('/'); // Navega de vuelta a la página principal
+        alert('Libro actualizado correctamente');
+        navigate("/");
       } else {
-        alert(`Error: ${result.message}`); // Muestra una alerta de error con el mensaje del servidor
+        setError(result.message || "Ocurrió un error al actualizar el libro");
       }
-    } catch (error) {
-      alert('Error al actualizar el libro'); // Muestra una alerta de error genérica si hay un problema con la solicitud
+    } catch (err) {
+      setError("No se pudo conectar con el servidor");
     }
   };
 
   return (
-    <div className="update-book-form">
-      <h2>Actualizar Libro</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Nombre del Libro</label>
-          <input
-            type="text"
-            name="nombreLibro"
-            value={formData.nombreLibro}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Autor</label>
-          <input
-            type="text"
-            name="autor"
-            value={formData.autor}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Editorial</label>
-          <input
-            type="text"
-            name="editorial"
-            value={formData.editorial}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Páginas</label>
-          <input
-            type="number"
-            name="paginas"
-            value={formData.paginas}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Portada</label>
-          <input
-            type="file"
-            name="portada"
-            onChange={handleFileChange}
-          />
-        </div>
-        <button type="submit">Actualizar Libro</button>
-      </form>
-      <button onClick={handleBackToHome}>Volver al Inicio</button>
+    <div className="container">
+      <div className="update-book-form">
+        <h2>Actualizar Libro</h2>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <div className="form-group">
+            <label>ISBN</label>
+            <input
+              type="text"
+              name="ISBN"
+              value={formData.ISBN}
+              readOnly // Esto hace que el campo sea de solo lectura
+            />
+          </div>
+          <div className="form-group">
+            <label>Nombre del Libro</label>
+            <input
+              type="text"
+              name="nombreLibro"
+              value={formData.nombreLibro}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Autor</label>
+            <input
+              type="text"
+              name="autor"
+              value={formData.autor}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Editorial</label>
+            <input
+              type="text"
+              name="editorial"
+              value={formData.editorial}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Páginas</label>
+            <input
+              type="number"
+              name="paginas"
+              value={formData.paginas}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Portada:</label>
+            <input type="file" name="portada" onChange={handleImageChange} />
+          </div>
+          <button type="submit">Actualizar Libro</button>
+          <div>
+            <br />
+            <Link to="/" className="back-button">
+              Volver a la página de inicio
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
-    
   );
 };
 
-export default UpdateBookForm;
+export default UpdateBook;
