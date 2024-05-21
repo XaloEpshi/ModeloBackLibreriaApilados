@@ -26,24 +26,28 @@ La API RESTful proporciona las siguientes rutas:
 // Rutas para el manejo de libros
 
 //Agregar Un Libro (funcionando)
-router.post('/libro', upload, libroController.nuevoLibro); // Ruta para crear un nuevo libro, incluyendo la carga de la portada
+router.post("/libro", upload, libroController.nuevoLibro); // Ruta para crear un nuevo libro, incluyendo la carga de la portada
 
 //Actualizar Un Libro
-router.put('/libro/:ISBN', libroController.actualizarLibro); // Ruta para actualizar un libro por su ISBN
+router.put("/actualizarLibro/:ISBN", libroController.actualizarLibro); // Ruta para actualizar un libro por su ISBN
 
 //Eliminar un Libro
-router.delete('/libro/:ISBN', libroController.eliminarLibro); // Ruta para eliminar un libro por su ISBN
+router.delete("/eliminarLibro/:ISBN", libroController.eliminarLibro); // Ruta para eliminar un libro por su ISBN
 
 //Listar los Ulitmos 3 Libros (Funcionando)
-router.get('/libros', libroController.obtenerUltimosLibros); // Ruta para obtener los utlimos 3 libros
+router.get("/libros", libroController.obtenerUltimosLibros); // Ruta para obtener los utlimos 3 libros
 
 //Listar Todos los libros de la base de datos(Funcionando)
-router.get('/todosLibros', libroController.obtenerTodosLosLibros);//Ruta para listar todos los libros encontrados en la base de datos.
+router.get("/todosLibros", libroController.obtenerTodosLosLibros); //Ruta para listar todos los libros encontrados en la base de datos.
 
 //Buscar Libro (Funcionando)
-router.get('/libro/buscar/:busqueda', libroController.buscarLibros); // Ruta para buscar libros por criterio de búsqueda
+router.get("/libro/buscar/:busqueda", libroController.buscarLibros); // Ruta para buscar libros por criterio de búsqueda
 
-module.exports = router; // Exporta el router para ser utilizado por la aplicación
+//Subir imagenes de portada
+router.post("libro/foto/:ISBN", libroController.uploadPortada); //Ruta para actualizar la portada de un libro
+
+// Ruta para cargar y actualizar la portada del libro
+router.post('/uploadPortada/:ISBN',upload, libroController.uploadPortada);
 
 
 Para utilizar estas rutas, realiza solicitudes HTTP a la URL base de la API (por ejemplo, `http://localhost:3000/api/pacientes`) utilizando un cliente REST como Postman.
