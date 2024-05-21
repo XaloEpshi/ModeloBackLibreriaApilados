@@ -1,16 +1,12 @@
 Hospital El Alerce - README
 
-¡Bienvenido al proyecto Hospital El Alerce!
+¡Bienvenido al proyecto Libreria Apilados!
 
-Este proyecto es una aplicación de gestión de pacientes para el Hospital El Alerce. Este archivo contiene información importante sobre cómo configurar, ejecutar y contribuir al proyecto.
+Este proyecto es el Backend incial para un proyecto CURD para una libreria, esto es un trabajo de universidad
 
 ## Configuración del Proyecto
 
-1. **Clonar el Repositorio:** 
-   Clona este repositorio en tu máquina local utilizando el siguiente comando:
-git clone [URL del repositorio]
-
-2. **Instalar Dependencias:** 
+**Instalar Dependencias:** 
 Una vez clonado el repositorio, accede al directorio del proyecto y ejecuta el siguiente comando para instalar todas las dependencias necesarias:
 npm install
 
@@ -27,16 +23,28 @@ El servidor se ejecutará en `http://localhost:3000`.
 
 La API RESTful proporciona las siguientes rutas:
 
-- `GET /api/pacientes`: Obtener todos los pacientes.
-- `POST /api/pacientes/paciente`: Crear un nuevo paciente.
-- `PUT /api/pacientes/paciente/:id`: Actualizar un paciente existente.
-- `DELETE /api/pacientes/paciente/:id`: Marcar un paciente como inactivo (no elimina físicamente el paciente, solo lo marca como inactivo).
-- `GET /api/pacientes/paciente/:id`: Obtener un paciente por su ID.
-- `GET /api/pacientes/pacientes/:last?`: Obtener todos los pacientes, con opción para obtener los últimos.
-- `GET /api/pacientes/pacientes-eliminados/`: Obtener todos los pacientes eliminados.
-- `GET /api/pacientes/paciente/search/:search`: Buscar pacientes por criterios de búsqueda.
-- `POST /api/pacientes/pacientes/photo/:id?`: Subir una foto para un paciente específico por su ID.
-- `GET /api/pacientes/paciente/photo/:filename`: Obtener la foto de un paciente por su nombre de archivo.
+// Rutas para el manejo de libros
+
+//Agregar Un Libro (funcionando)
+router.post('/libro', upload, libroController.nuevoLibro); // Ruta para crear un nuevo libro, incluyendo la carga de la portada
+
+//Actualizar Un Libro
+router.put('/libro/:ISBN', libroController.actualizarLibro); // Ruta para actualizar un libro por su ISBN
+
+//Eliminar un Libro
+router.delete('/libro/:ISBN', libroController.eliminarLibro); // Ruta para eliminar un libro por su ISBN
+
+//Listar los Ulitmos 3 Libros (Funcionando)
+router.get('/libros', libroController.obtenerUltimosLibros); // Ruta para obtener los utlimos 3 libros
+
+//Listar Todos los libros de la base de datos(Funcionando)
+router.get('/todosLibros', libroController.obtenerTodosLosLibros);//Ruta para listar todos los libros encontrados en la base de datos.
+
+//Buscar Libro (Funcionando)
+router.get('/libro/buscar/:busqueda', libroController.buscarLibros); // Ruta para buscar libros por criterio de búsqueda
+
+module.exports = router; // Exporta el router para ser utilizado por la aplicación
+
 
 Para utilizar estas rutas, realiza solicitudes HTTP a la URL base de la API (por ejemplo, `http://localhost:3000/api/pacientes`) utilizando un cliente REST como Postman.
 
@@ -44,8 +52,3 @@ Para utilizar estas rutas, realiza solicitudes HTTP a la URL base de la API (por
 
 ¡Siéntete libre de contribuir al proyecto! Abre una solicitud de extracción con tus mejoras o correcciones de errores.
 
-## Contacto
-
-Para más información, ponte en contacto con [nombre del responsable del proyecto] en [correo electrónico].
-
-¡Gracias por tu interés en nuestro proyecto!.
