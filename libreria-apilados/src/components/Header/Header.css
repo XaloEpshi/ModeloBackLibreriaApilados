@@ -11,25 +11,18 @@
 
 .header-title {
     font-size: 5.0rem;
-    color: #fbfbfb; /* Azul oscuro */
-}
-
-.header-text {
-    margin-top: -1.8rem;
-    margin-bottom: 2.8rem;
-    opacity: 3.0; /* Aumentar la opacidad para mejorar la legibilidad */
-    max-width: 770px;
-    font-size: 15px;
-    color: #e9ecf0; /* Otro tono de azul oscuro */
+    color: #fbfbfb;
+    font-style: italic;
 }
 
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #ecf0f1; /* Gris claro */
-    color: #ffffff; /* Azul oscuro para el texto */
-}
+body {  
+    color: #ffffff;
+    font-size: 20px;
+    font-style: italic;
+    
 
+}
 a {
     color: #e67e22; /* Naranja para enlaces */
 }
@@ -45,4 +38,8 @@ button {
 
 button:hover {
     background-color: #d35400; /* Tono más oscuro de naranja para hover */
+}
+
+.incio{
+    font-size: 30px;
 }
