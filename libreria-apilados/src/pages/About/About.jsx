@@ -7,13 +7,17 @@ const About = () => {
     <section className="about">
       <div className="container">
         <div className="about-content">
+          <h2 className="about-title">
+            Sobre Nosotros
+          </h2>
+          <br></br>
           <div className="about-img">
             <img src={aboutImg} alt="Libros About" />
           </div>
           <div className="about-text">
             <br/>
             <h2 className="about-title">
-              Acerca de Libreria Apilados
+              Libreria Apilados
             </h2>
             <p className="acercaDe">
               Bienvenidos a Librería Apilados, la nueva estrella en el universo

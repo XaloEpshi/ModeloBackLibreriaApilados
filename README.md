@@ -1,5 +1,3 @@
-Hospital El Alerce - README
-
 ¡Bienvenido al proyecto Libreria Apilados!
 
 Este proyecto es el Backend incial para un proyecto CURD para una libreria, esto es un trabajo de universidad
@@ -50,7 +48,7 @@ router.post("libro/foto/:ISBN", libroController.uploadPortada); //Ruta para actu
 router.post('/uploadPortada/:ISBN',upload, libroController.uploadPortada);
 
 
-Para utilizar estas rutas, realiza solicitudes HTTP a la URL base de la API (por ejemplo, `http://localhost:3000/api/pacientes`) utilizando un cliente REST como Postman.
+Para utilizar estas rutas, realiza solicitudes HTTP a la URL base de la API (por ejemplo, `http://localhost:3000/api/`) utilizando un cliente REST como Postman.
 
 ## Contribución
 

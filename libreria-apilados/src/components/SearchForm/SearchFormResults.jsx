@@ -38,7 +38,7 @@ const SearchResults = () => {
 
   return (
     <div className='search-results'>
-      <div className='container'>
+      <div className='container-flex'>
         <h2 className="title-text">Resultados de la búsqueda</h2>
         <button onClick={handleBackToHome}>Volver al Inicio</button>
         {searchResults.length > 0 ? (

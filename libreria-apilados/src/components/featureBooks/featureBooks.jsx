@@ -37,7 +37,7 @@ const FeaturedBooks = () => {
   // Renderizado de la lista de libros
   return (
     <div className='search-results'>
-      <div className='container'>
+      <div className='container-flex'>
         <h2 className="title-text">Libros Destacados</h2>
         {libros.length > 0 ? ( // Verificar si hay libros en la lista
           <div className="results-grid">

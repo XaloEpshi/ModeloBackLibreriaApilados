@@ -5,8 +5,8 @@
   }
   
   /* Estilos para el contenedor */
-  .container {
-    max-width: 1200px; /* O el ancho máximo que prefieras */
+  .container-flex {
+    max-width: 1000px; /* O el ancho máximo que prefieras */
     margin: 0 auto;
     padding: 0 15px;
   }
